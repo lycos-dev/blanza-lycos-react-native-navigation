@@ -20,12 +20,23 @@ const HomeScreen: React.FC = () => {
       {/* top bar — title + cart icon + toggle */}
       <Header title="FitShop" cart />
 
-      <ScrollView style={S.scroll} contentContainerStyle={S.scrollPad} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={S.scroll}
+        contentContainerStyle={S.scrollPad}
+        showsVerticalScrollIndicator={false}
+      >
         {/* hero banner */}
-        <View style={[S.hero, { backgroundColor: c.cardBg, borderColor: c.cardBorder }]}>
-          <Text style={[S.heroTitle, { color: c.text }]}>Gear Up.</Text>
+        <View
+          style={[
+            S.hero,
+            { backgroundColor: c.cardBg, borderColor: c.cardBorder },
+          ]}
+        >
+          <Text style={[S.heroTitle, { color: c.text }]}>
+            Gear up.
+          </Text>
           <Text style={[S.heroSub, { color: c.textSub }]}>
-            Premium gym & apparel — delivered fast.
+            Kung wala kang equipment, wala kang workout.
           </Text>
         </View>
 
@@ -42,10 +53,18 @@ const HomeScreen: React.FC = () => {
       </ScrollView>
 
       {/* ── sticky "Go to Cart" bar ── */}
-      <View style={[S.stickyBar, { backgroundColor: c.headerBg, borderTopColor: c.headerBorder }]}>
+      <View
+        style={[
+          S.stickyBar,
+          { backgroundColor: c.headerBg, borderTopColor: c.headerBorder },
+        ]}
+      >
         <Pressable
           onPress={() => go(Screen.Cart)}
-          style={({ pressed }) => [S.pillBtn, { backgroundColor: pressed ? c.accentPress : c.accent }]}
+          style={({ pressed }) => [
+            S.pillBtn,
+            { backgroundColor: pressed ? c.accentPress : c.accent },
+          ]}
         >
           <View style={S.pillRow}>
             <CartIcon color={c.accentTxt} size={18} />

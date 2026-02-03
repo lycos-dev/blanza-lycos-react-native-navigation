@@ -1,9 +1,6 @@
 import { Product } from "../types";
-
-// NOTE: To add product images, place your images in an 'assets' or 'images' folder
-// and import them like this:
-// import dumbbellImage from "../../assets/dumbbells.png";
-// Then add: image: dumbbellImage to each product
+import dumbbellImage from "../assets/dumbellImage.webp";
+import resistanceBandImage from "../assets/resistanceBand.webp";
 
 export const PRODUCTS: Product[] = [
   {
@@ -12,7 +9,7 @@ export const PRODUCTS: Product[] = [
     price: 3499,
     icon: "DB",
     description: "5–25 kg, anti-slip grip",
-    // image: dumbbellImage, // Uncomment and add your imported image
+    image: dumbbellImage,
   },
   {
     id: 2,
@@ -20,7 +17,7 @@ export const PRODUCTS: Product[] = [
     price: 849,
     icon: "RB",
     description: "5 levels, latex-free",
-    // image: resistanceBandImage,
+    image: resistanceBandImage,
   },
   {
     id: 3,
