@@ -42,4 +42,6 @@ export interface Colors {
   trackOff: string;
   trackOn: string;
   thumbBg: string;
+  successBg: string;
+  successTxt: string;
 }
