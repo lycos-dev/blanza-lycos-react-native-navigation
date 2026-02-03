@@ -9,8 +9,6 @@ import HomeScreen from "./src/screens/HomeScreen";
 import CartScreen from "./src/screens/CartScreen";
 import CheckoutScreen from "./src/screens/CheckoutScreen";
 
-// ─── inner shell (needs theme already available for the bg colour) ──────────
-
 const AppShell: React.FC = () => {
   const { c } = useTh();
   const { screen } = useNav();
@@ -25,8 +23,6 @@ const AppShell: React.FC = () => {
 
   return <View style={[{ flex: 1 }, { backgroundColor: c.bg }]}>{renderScreen()}</View>;
 };
-
-// ─── root export ─────────────────────────────────────────────────────────────
 
 export default function App() {
   return (
