@@ -51,7 +51,7 @@ const CheckoutScreen: React.FC = () => {
     );
   }
 
-  /* ── main layout ── */
+  /* main layout */
   return (
     <View style={[S.screen, { backgroundColor: c.bg }]}>
       <Header title="Checkout" back />
@@ -61,14 +61,14 @@ const CheckoutScreen: React.FC = () => {
         contentContainerStyle={S.scrollPad} 
         showsVerticalScrollIndicator={false}
       >
-        {/* ── Order Header Section ── */}
+        {/* Order Header Section */}
         <View style={{ marginBottom: 20 }}>
           <Text style={[S.sectionLbl, { color: c.textTert }]}>
             {items.length} ITEM{items.length !== 1 ? "S" : ""} IN ORDER
           </Text>
         </View>
 
-        {/* ── Order Summary card with products ── */}
+        {/* Order Summary */}
         <View 
           style={[
             S.coCard, 
@@ -77,11 +77,12 @@ const CheckoutScreen: React.FC = () => {
               borderColor: c.cardBorder,
               borderRadius: 18,
               paddingVertical: 0,
+              paddingHorizontal: 0,
               overflow: "hidden",
             }
           ]}
         >
-          {/* Card Header */}
+          {/* Card Header with accent background */}
           <View
             style={{
               backgroundColor: c.accent,
@@ -183,11 +184,8 @@ const CheckoutScreen: React.FC = () => {
             style={{
               borderTopWidth: 1,
               borderTopColor: c.divider,
-              backgroundColor: c.bg,
               paddingHorizontal: 18,
               paddingVertical: 16,
-              borderBottomLeftRadius: 18,
-              borderBottomRightRadius: 18,
             }}
           >
             <View
@@ -219,34 +217,11 @@ const CheckoutScreen: React.FC = () => {
           </View>
         </View>
 
-        {/* Additional Info Section */}
-        <View
-          style={{
-            marginTop: 24,
-            paddingHorizontal: 16,
-            paddingVertical: 12,
-            backgroundColor: c.cardBg,
-            borderRadius: 12,
-            borderLeftWidth: 4,
-            borderLeftColor: c.accent,
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 13,
-              color: c.textSub,
-              lineHeight: 20,
-            }}
-          >
-            📦 Your order will be processed and shipped within 2-3 business days.
-          </Text>
-        </View>
-
         {/* spacer behind sticky button */}
         <View style={{ height: 100 }} />
       </ScrollView>
 
-      {/* ── sticky Checkout button ── */}
+      {/* sticky Checkout button */}
       <View 
         style={[
           S.stickyBar, 

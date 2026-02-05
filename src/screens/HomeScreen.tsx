@@ -25,14 +25,15 @@ const HomeScreen: React.FC = () => {
         contentContainerStyle={S.scrollPad}
         showsVerticalScrollIndicator={false}
       >
-        {/* hero banner with "Black Edition" promotion */}
+        {/* hero banner with rotated "Black Edition" sticker */}
         <View
           style={[
             S.hero,
             { 
               backgroundColor: c.cardBg, 
               borderColor: c.cardBorder,
-              overflow: "hidden",
+              overflow: "visible",
+              position: "relative",
             },
           ]}
         >
@@ -47,6 +48,7 @@ const HomeScreen: React.FC = () => {
               opacity: 0.1,
               top: -80,
               right: -60,
+              zIndex: 1,
             }}
           />
           <View
@@ -59,31 +61,44 @@ const HomeScreen: React.FC = () => {
               opacity: 0.06,
               bottom: -70,
               left: -50,
+              zIndex: 1,
             }}
           />
 
-          {/* Promotion Badge */}
+          {/* Black Edition" Sticker */}
           <View
             style={{
-              alignSelf: "flex-start",
-              backgroundColor: c.accent,
-              paddingHorizontal: 14,
-              paddingVertical: 6,
-              borderRadius: 20,
-              marginBottom: 16,
-              zIndex: 10,
+              position: "absolute",
+              top: 30,
+              right: -24,
+              zIndex: 15,
+              transform: [{ rotate: "45deg" }],
             }}
           >
-            <Text
+            <View
               style={{
-                fontSize: 12,
-                fontWeight: "700",
-                color: c.accentTxt,
-                letterSpacing: 1.2,
+                backgroundColor: c.accent,
+                paddingHorizontal: 20,
+                paddingVertical: 5,
+                borderRadius: 3,
+                shadowColor: "#000",
+                shadowOffset: { width: 0, height: 4 },
+                shadowOpacity: 0.3,
+                shadowRadius: 6,
+                elevation: 8,
               }}
             >
-              ✨ BLACK EDITION ✨
-            </Text>
+              <Text
+                style={{
+                  fontSize: 10,
+                  fontWeight: "800",
+                  color: c.accentTxt,
+                  letterSpacing: 0.8,
+                }}
+              >
+                BLACK EDITION
+              </Text>
+            </View>
           </View>
 
           {/* Main Content - Better centered layout */}
@@ -153,7 +168,7 @@ const HomeScreen: React.FC = () => {
         <View style={{ height: qty > 0 ? 100 : 20 }} />
       </ScrollView>
 
-      {/* ── sticky "Go to Cart" bar (only show if items in cart) ── */}
+      {/* "Go to Cart" bar (only show if items in cart) */}
       {qty > 0 && (
         <View
           style={[
