@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { View, Text, Pressable, ScrollView, Alert, Image } from "react-native";
+import { View, Text, Pressable, ScrollView, FlatList, Alert, Image } from "react-native";
 import { useTh } from "../context/ThemeContext";
 import { useNav } from "../context/NavigationContext";
 import { useCart } from "../context/CartContext";
@@ -51,6 +51,79 @@ const CheckoutScreen: React.FC = () => {
     );
   }
 
+  const renderOrderItem = ({ item, index }: { item: CartItem; index: number }) => (
+    <View
+      style={{
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 12,
+        paddingVertical: 14,
+        borderBottomWidth: index < items.length - 1 ? 1 : 0,
+        borderBottomColor: c.divider,
+      }}
+    >
+      {/* Product Image */}
+      {item.image ? (
+        <Image
+          source={item.image}
+          style={{
+            width: 72,
+            height: 72,
+            borderRadius: 12,
+            backgroundColor: c.divider,
+          }}
+          resizeMode="cover"
+        />
+      ) : (
+        <View
+          style={{
+            width: 72,
+            height: 72,
+            borderRadius: 12,
+            backgroundColor: c.divider,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ fontSize: 24 }}>📦</Text>
+        </View>
+      )}
+
+      {/* Product Details */}
+      <View style={{ flex: 1, minWidth: 0 }}>
+        <Text
+          style={{
+            fontSize: 14,
+            fontWeight: "700",
+            color: c.text,
+            marginBottom: 4,
+          }}
+          numberOfLines={2}
+        >
+          {item.name}
+        </Text>
+        <Text
+          style={{
+            fontSize: 12,
+            color: c.textTert,
+            marginBottom: 6,
+          }}
+        >
+          Qty: {item.quantity}
+        </Text>
+        <Text
+          style={{
+            fontSize: 13,
+            fontWeight: "600",
+            color: c.price,
+          }}
+        >
+          ₱ {((item.price || 0) * item.quantity).toLocaleString()}
+        </Text>
+      </View>
+    </View>
+  );
+
   /* main layout */
   return (
     <View style={[S.screen, { backgroundColor: c.bg }]}>
@@ -68,7 +141,7 @@ const CheckoutScreen: React.FC = () => {
           </Text>
         </View>
 
-        {/* Order Summary */}
+        {/* Order Summary Card */}
         <View 
           style={[
             S.coCard, 
@@ -102,81 +175,15 @@ const CheckoutScreen: React.FC = () => {
             </Text>
           </View>
 
-          {/* Product items with images */}
+          {/* FlatList for Product items */}
           <View style={{ paddingHorizontal: 18, paddingVertical: 16 }}>
-            {items.map((item: CartItem, index: number) => (
-              <View
-                key={item.id}
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  gap: 12,
-                  paddingVertical: 14,
-                  borderBottomWidth: index < items.length - 1 ? 1 : 0,
-                  borderBottomColor: c.divider,
-                }}
-              >
-                {/* Product Image */}
-                {item.image ? (
-                  <Image
-                    source={item.image}
-                    style={{
-                      width: 72,
-                      height: 72,
-                      borderRadius: 12,
-                      backgroundColor: c.divider,
-                    }}
-                    resizeMode="cover"
-                  />
-                ) : (
-                  <View
-                    style={{
-                      width: 72,
-                      height: 72,
-                      borderRadius: 12,
-                      backgroundColor: c.divider,
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Text style={{ fontSize: 24 }}>📦</Text>
-                  </View>
-                )}
-
-                {/* Product Details */}
-                <View style={{ flex: 1, minWidth: 0 }}>
-                  <Text
-                    style={{
-                      fontSize: 14,
-                      fontWeight: "700",
-                      color: c.text,
-                      marginBottom: 4,
-                    }}
-                    numberOfLines={2}
-                  >
-                    {item.name}
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: c.textTert,
-                      marginBottom: 6,
-                    }}
-                  >
-                    Qty: {item.quantity}
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 13,
-                      fontWeight: "600",
-                      color: c.price,
-                    }}
-                  >
-                    ₱ {((item.price || 0) * item.quantity).toLocaleString()}
-                  </Text>
-                </View>
-              </View>
-            ))}
+            <FlatList
+              data={items}
+              renderItem={renderOrderItem}
+              keyExtractor={(item) => item.id}
+              scrollEnabled={false}
+              showsVerticalScrollIndicator={false}
+            />
           </View>
 
           {/* Total Section */}
