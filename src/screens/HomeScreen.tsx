@@ -32,40 +32,40 @@ const HomeScreen: React.FC = () => {
             { 
               backgroundColor: c.cardBg, 
               borderColor: c.cardBorder,
-              overflow: "visible",
+              overflow: "hidden",
               position: "relative",
             },
           ]}
         >
-          {/* Decorative background circles */}
+          {/* Decorative background circles - ADJUSTED TO STAY INSIDE */}
           <View
             style={{
               position: "absolute",
-              width: 250,
-              height: 250,
-              borderRadius: 125,
+              width: 200,
+              height: 200,
+              borderRadius: 100,
               backgroundColor: c.accent,
               opacity: 0.1,
-              top: -80,
-              right: -60,
+              top: -60,
+              right: -40,
               zIndex: 1,
             }}
           />
           <View
             style={{
               position: "absolute",
-              width: 180,
-              height: 180,
-              borderRadius: 90,
+              width: 140,
+              height: 140,
+              borderRadius: 70,
               backgroundColor: c.accent,
               opacity: 0.06,
-              bottom: -70,
-              left: -50,
+              bottom: -50,
+              left: -30,
               zIndex: 1,
             }}
           />
 
-          {/* Black Edition" Sticker */}
+          {/* "Black Edition" Sticker */}
           <View
             style={{
               position: "absolute",
