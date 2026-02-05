@@ -22,13 +22,13 @@ const CoRow = ({ item }: { item: CartItem }) => {
       <View style={S.coText}>
         <Text style={[S.coName, { color: c.text }]}>{item.name}</Text>
         <Text style={[S.coQtyTxt, { color: c.textTert }]}>
-          Qty {item.quantity} × ₱ {item.price.toLocaleString()}
+          Qty {item.quantity} × ₱ {(item.price || 0).toLocaleString()}
         </Text>
       </View>
 
       {/* line total */}
       <Text style={[S.coPrice, { color: c.price }]}>
-        ₱ {(item.price * item.quantity).toLocaleString()}
+        ₱ {((item.price || 0) * item.quantity).toLocaleString()}
       </Text>
     </View>
   );

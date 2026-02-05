@@ -113,8 +113,12 @@ const S = StyleSheet.create({
     shadowRadius: 8,
     elevation: 3,
   },
+  heroBadge: { paddingHorizontal: 12, paddingVertical: 6, borderRadius: 8, marginBottom: 12 },
+  heroBadgeTxt: { fontSize: 11, fontWeight: "700", letterSpacing: 0.5 },
   heroTitle: { fontSize: 26, fontWeight: "800", letterSpacing: -0.3, marginBottom: 4 },
-  heroSub: { fontSize: 14 },
+  heroSub: { fontSize: 14, marginBottom: 16, textAlign: "center" },
+  heroCta: { borderRadius: 12, paddingHorizontal: 24, paddingVertical: 12, borderWidth: 1 },
+  heroCtaTxt: { fontSize: 15, fontWeight: "700" },
 
   /* ── section label ── */
   sectionLbl: { fontSize: 11, fontWeight: "600", letterSpacing: 1.4, marginBottom: 12 },
@@ -172,11 +176,19 @@ const S = StyleSheet.create({
     shadowRadius: 6,
     elevation: 2,
   },
-  cartText: { flex: 1, minWidth: 0 },
-  cartName: { fontSize: 14, fontWeight: "700", marginBottom: 1 },
+  cartImg: { width: 80, height: 80, borderRadius: 12, flexShrink: 0 },
+  cartInfo: { flex: 1, minWidth: 0 },
+  cartName: { fontSize: 14, fontWeight: "700", marginBottom: 4 },
+  cartPrice: { fontSize: 14, fontWeight: "600", marginBottom: 8 },
   cartUnit: { fontSize: 12 },
+  cartQtyWrap: { flexDirection: "row", alignItems: "center", gap: 8 },
+  qtyBtn: { width: 32, height: 32, borderRadius: 8, alignItems: "center", justifyContent: "center", borderWidth: 1 },
+  qtyBtnTxt: { fontSize: 16, fontWeight: "600" },
+  qtyNum: { fontSize: 16, fontWeight: "700", minWidth: 28, textAlign: "center" },
+  cartTotal: { minWidth: 68, alignItems: "flex-end" },
+  cartTotalTxt: { fontSize: 15, fontWeight: "800" },
+  cartText: { flex: 1, minWidth: 0 },
   qtyRow: { flexDirection: "row", alignItems: "center", gap: 8, flexShrink: 0 },
-  qtyNum: { fontSize: 16, fontWeight: "700", minWidth: 20, textAlign: "center" },
   cartSubtotal: { fontSize: 14, fontWeight: "800", minWidth: 62, textAlign: "right", flexShrink: 0 },
 
   /* ── qty circle button ── */
@@ -203,6 +215,14 @@ const S = StyleSheet.create({
     elevation: 2,
   },
   coCardTitle: { fontSize: 14, fontWeight: "700", marginBottom: 14, letterSpacing: 0.2 },
+  coItemCard: { flexDirection: "row", alignItems: "center", gap: 12 },
+  coImg: { width: 76, height: 76, borderRadius: 12, flexShrink: 0 },
+  coInfo: { flex: 1, minWidth: 0 },
+  coName: { fontSize: 13, fontWeight: "700", marginBottom: 4 },
+  coQty: { fontSize: 12, marginBottom: 2 },
+  coPrice: { fontSize: 13, fontWeight: "600" },
+  coTotal: { minWidth: 64, alignItems: "flex-end" },
+  coTotalTxt: { fontSize: 14, fontWeight: "800" },
 
   /* ── checkout row ── */
   coRow: {
@@ -213,9 +233,7 @@ const S = StyleSheet.create({
     borderBottomWidth: 1,
   },
   coText: { flex: 1 },
-  coName: { fontSize: 13, fontWeight: "700", marginBottom: 1 },
   coQtyTxt: { fontSize: 12 },
-  coPrice: { fontSize: 14, fontWeight: "800", minWidth: 64, textAlign: "right" },
 
   /* ── price breakdown ── */
   bRow: { flexDirection: "row", justifyContent: "space-between", paddingVertical: 7 },

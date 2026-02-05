@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Pressable, FlatList } from "react-native";
+import { View, Text, Pressable, ScrollView } from "react-native";
 import { useTh } from "../context/ThemeContext";
 import { useNav } from "../context/NavigationContext";
 import { useCart } from "../context/CartContext";
@@ -44,43 +44,31 @@ const CartScreen: React.FC = () => {
     );
   }
 
-  const renderHeader = () => (
-    /* item-count label */
-    <Text style={[S.sectionLbl, { color: c.textTert }]}>
-      {qty} ITEM{qty !== 1 ? "S" : ""}
-    </Text>
-  );
-
-  const renderItem = ({ item }: { item: CartItem }) => (
-    <CartRow item={item} />
-  );
-
-  const renderFooter = () => (
-    /* spacer behind sticky footer */
-    <View style={{ height: 108 }} />
-  );
-
   /* ── populated cart ── */
   return (
     <View style={[S.screen, { backgroundColor: c.bg }]}>
       <Header title="Your Cart" back />
 
-      <FlatList
-        data={items}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        ListHeaderComponent={renderHeader}
-        ListFooterComponent={renderFooter}
-        style={S.scroll}
-        contentContainerStyle={S.scrollPad}
-        showsVerticalScrollIndicator={false}
-      />
+      <ScrollView style={S.scroll} contentContainerStyle={S.scrollPad} showsVerticalScrollIndicator={false}>
+        {/* item-count label */}
+        <Text style={[S.sectionLbl, { color: c.textTert }]}>
+          {qty} ITEM{qty !== 1 ? "S" : ""}
+        </Text>
+
+        {/* list of cart rows */}
+        {items.map((i: CartItem) => (
+          <CartRow key={i.id} item={i} />
+        ))}
+
+        {/* spacer behind sticky footer */}
+        <View style={{ height: 108 }} />
+      </ScrollView>
 
       {/* ── sticky footer: total + proceed ── */}
       <View style={[S.cartFooter, { backgroundColor: c.headerBg, borderTopColor: c.headerBorder }]}>
         <View style={S.totalStrip}>
           <Text style={[S.totalLbl, { color: c.textSub }]}>Total</Text>
-          <Text style={[S.totalVal, { color: c.price }]}>₱ {total.toLocaleString()}</Text>
+          <Text style={[S.totalVal, { color: c.price }]}>₱ {(total || 0).toLocaleString()}</Text>
         </View>
 
         <Pressable

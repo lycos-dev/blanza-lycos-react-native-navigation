@@ -30,7 +30,7 @@ const CartRow = ({ item }: { item: CartItem }) => {
       <View style={S.cartText}>
         <Text style={[S.cartName, { color: c.text }]}>{item.name}</Text>
         <Text style={[S.cartUnit, { color: c.textTert }]}>
-          ₱ {item.price.toLocaleString()} each
+          ₱ {(item.price || 0).toLocaleString()} each
         </Text>
       </View>
 
@@ -53,7 +53,7 @@ const CartRow = ({ item }: { item: CartItem }) => {
 
       {/* line subtotal */}
       <Text style={[S.cartSubtotal, { color: c.price }]}>
-        ₱ {(item.price * item.quantity).toLocaleString()}
+        ₱ {((item.price || 0) * item.quantity).toLocaleString()}
       </Text>
     </View>
   );
