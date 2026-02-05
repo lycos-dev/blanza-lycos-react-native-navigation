@@ -1,6 +1,14 @@
 import { Product } from "../types";
-import dumbbellImage from "../assets/dumbellImage.webp";
-import resistanceBandImage from "../assets/resistanceBand.webp";
+import dumbbellImage from "../assets/dumbellImage.png";
+import resistanceBandImage from "../assets/resistanceBand.png";
+import jumpRopeImage from "../assets/speedJumprope.webp"
+import yogaMatImage from "../assets/yogaMat.png"
+import gymGlovesImage from "../assets/gymGloves.avif"
+import proteinShakerImage from "../assets/proteinShaker.jpg"
+import joggerPantsImage from "../assets/joggerPants.png"
+import sandoVestImage from "../assets/sandoVest.png"
+import compressionTeeImage from "../assets/compressionTee.png"
+import hoodieImage from "../assets/athleticHoodie.png"
 
 export const PRODUCTS: Product[] = [
   {
@@ -25,7 +33,7 @@ export const PRODUCTS: Product[] = [
     price: 425,
     icon: "JR",
     description: "Bearings, foam handles",
-    // image: jumpRopeImage,
+    image: jumpRopeImage,
   },
   {
     id: 4,
@@ -33,7 +41,7 @@ export const PRODUCTS: Product[] = [
     price: 620,
     icon: "YM",
     description: "6 mm thick, non-slip",
-    // image: yogaMatImage,
+    image: yogaMatImage,
   },
   {
     id: 5,
@@ -41,7 +49,7 @@ export const PRODUCTS: Product[] = [
     price: 780,
     icon: "GG",
     description: "Wrist strap, breathable",
-    // image: gymGlovesImage,
+    image: gymGlovesImage,
   },
   {
     id: 6,
@@ -49,7 +57,7 @@ export const PRODUCTS: Product[] = [
     price: 390,
     icon: "PS",
     description: "700 ml, leak-proof lid",
-    // image: proteinShakerImage,
+    image: proteinShakerImage,
   },
   {
     id: 7,
@@ -57,23 +65,23 @@ export const PRODUCTS: Product[] = [
     price: 1250,
     icon: "JG",
     description: "Tapered, cotton blend",
-    // image: joggersImage,
+    image: joggerPantsImage,
   },
   {
     id: 8,
-    name: "Women's Sports Bra",
-    price: 890,
+    name: "Quick Drying Vest",
+    price: 150,
     icon: "SB",
-    description: "High support, moisture-wick",
-    // image: sportsBraImage,
+    description: "cotton, breathable",
+    image: sandoVestImage,
   },
   {
     id: 9,
     name: "Compression Tee",
-    price: 750,
+    price: 250,
     icon: "CT",
     description: "Dry-fit, slim cut",
-    // image: compressionTeeImage,
+    image: compressionTeeImage,
   },
   {
     id: 10,
@@ -81,6 +89,6 @@ export const PRODUCTS: Product[] = [
     price: 1890,
     icon: "AH",
     description: "Fleece, kangaroo pocket",
-    // image: hoodieImage,
+    image: hoodieImage,
   },
 ];
