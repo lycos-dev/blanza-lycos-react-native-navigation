@@ -1,23 +1,16 @@
 import React, { useCallback } from "react";
-import { View, Text, Pressable, ScrollView, Alert } from "react-native";
+import { View, Text, Pressable, ScrollView, Alert, Image } from "react-native";
 import { useTh } from "../context/ThemeContext";
 import { useNav } from "../context/NavigationContext";
 import { useCart } from "../context/CartContext";
 import { Screen, CartItem } from "../types";
 import Header from "../components/Header";
-import CoRow from "../components/CoRow";
 import S from "../styles/global";
 
 const CheckoutScreen: React.FC = () => {
   const { c } = useTh();
   const { go } = useNav();
   const { items, total, clear } = useCart();
-
-  /* ── price maths ── */
-  const subtotal = total;
-  const shipping = subtotal > 2000 ? 0 : 199;          // free over ₱ 2 000
-  const tax      = Math.round(subtotal * 0.08);        // 8 %
-  const grand    = subtotal + shipping + tax;
 
   /* ── checkout handler ── */
   const onCheckout = useCallback(() => {
@@ -63,48 +56,190 @@ const CheckoutScreen: React.FC = () => {
     <View style={[S.screen, { backgroundColor: c.bg }]}>
       <Header title="Checkout" back />
 
-      <ScrollView style={S.scroll} contentContainerStyle={S.scrollPad} showsVerticalScrollIndicator={false}>
-
-        {/* ── Order Summary card ── */}
-        <View style={[S.coCard, { backgroundColor: c.cardBg, borderColor: c.cardBorder }]}>
-          <Text style={[S.coCardTitle, { color: c.text }]}>Order Summary</Text>
-          {items.map((i: CartItem) => (
-            <CoRow key={i.id} item={i} />
-          ))}
+      <ScrollView 
+        style={S.scroll} 
+        contentContainerStyle={S.scrollPad} 
+        showsVerticalScrollIndicator={false}
+      >
+        {/* ── Order Header Section ── */}
+        <View style={{ marginBottom: 20 }}>
+          <Text style={[S.sectionLbl, { color: c.textTert }]}>
+            {items.length} ITEM{items.length !== 1 ? "S" : ""} IN ORDER
+          </Text>
         </View>
 
-        {/* ── Price Breakdown card ── */}
-        <View style={[S.coCard, { backgroundColor: c.cardBg, borderColor: c.cardBorder }]}>
-          <Text style={[S.coCardTitle, { color: c.text }]}>Price Breakdown</Text>
-
-          {/* subtotal */}
-          <View style={S.bRow}>
-            <Text style={[S.bLbl, { color: c.textSub }]}>Subtotal</Text>
-            <Text style={[S.bVal, { color: c.text }]}>₱ {(subtotal || 0).toLocaleString()}</Text>
-          </View>
-
-          {/* shipping */}
-          <View style={S.bRow}>
-            <Text style={[S.bLbl, { color: c.textSub }]}>Shipping</Text>
-            <Text style={[S.bVal, { color: shipping === 0 ? c.successTxt : c.text }]}>
-              {shipping === 0 ? "FREE" : `₱ ${shipping}`}
+        {/* ── Order Summary card with products ── */}
+        <View 
+          style={[
+            S.coCard, 
+            { 
+              backgroundColor: c.cardBg, 
+              borderColor: c.cardBorder,
+              borderRadius: 18,
+              paddingVertical: 0,
+              overflow: "hidden",
+            }
+          ]}
+        >
+          {/* Card Header */}
+          <View
+            style={{
+              backgroundColor: c.accent,
+              paddingHorizontal: 18,
+              paddingVertical: 16,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: "800",
+                color: c.accentTxt,
+                letterSpacing: 0.3,
+              }}
+            >
+              Order Summary
             </Text>
           </View>
 
-          {/* tax */}
-          <View style={S.bRow}>
-            <Text style={[S.bLbl, { color: c.textSub }]}>Tax (8%)</Text>
-            <Text style={[S.bVal, { color: c.text }]}>₱ {(tax || 0).toLocaleString()}</Text>
+          {/* Product items with images */}
+          <View style={{ paddingHorizontal: 18, paddingVertical: 16 }}>
+            {items.map((item: CartItem, index: number) => (
+              <View
+                key={item.id}
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: 12,
+                  paddingVertical: 14,
+                  borderBottomWidth: index < items.length - 1 ? 1 : 0,
+                  borderBottomColor: c.divider,
+                }}
+              >
+                {/* Product Image */}
+                {item.image ? (
+                  <Image
+                    source={item.image}
+                    style={{
+                      width: 72,
+                      height: 72,
+                      borderRadius: 12,
+                      backgroundColor: c.divider,
+                    }}
+                    resizeMode="cover"
+                  />
+                ) : (
+                  <View
+                    style={{
+                      width: 72,
+                      height: 72,
+                      borderRadius: 12,
+                      backgroundColor: c.divider,
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={{ fontSize: 24 }}>📦</Text>
+                  </View>
+                )}
+
+                {/* Product Details */}
+                <View style={{ flex: 1, minWidth: 0 }}>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      fontWeight: "700",
+                      color: c.text,
+                      marginBottom: 4,
+                    }}
+                    numberOfLines={2}
+                  >
+                    {item.name}
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      color: c.textTert,
+                      marginBottom: 6,
+                    }}
+                  >
+                    Qty: {item.quantity}
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 13,
+                      fontWeight: "600",
+                      color: c.price,
+                    }}
+                  >
+                    ₱ {((item.price || 0) * item.quantity).toLocaleString()}
+                  </Text>
+                </View>
+              </View>
+            ))}
           </View>
 
-          {/* divider */}
-          <View style={[S.divLine, { borderColor: c.divider }]} />
-
-          {/* grand total */}
-          <View style={S.bRow}>
-            <Text style={[S.grandLbl, { color: c.text }]}>Total</Text>
-            <Text style={[S.grandVal, { color: c.price }]}>₱ {(grand || 0).toLocaleString()}</Text>
+          {/* Total Section */}
+          <View
+            style={{
+              borderTopWidth: 1,
+              borderTopColor: c.divider,
+              backgroundColor: c.bg,
+              paddingHorizontal: 18,
+              paddingVertical: 16,
+              borderBottomLeftRadius: 18,
+              borderBottomRightRadius: 18,
+            }}
+          >
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontWeight: "600",
+                  color: c.textSub,
+                }}
+              >
+                Total Amount
+              </Text>
+              <Text
+                style={{
+                  fontSize: 24,
+                  fontWeight: "800",
+                  color: c.accent,
+                }}
+              >
+                ₱ {(total || 0).toLocaleString()}
+              </Text>
+            </View>
           </View>
+        </View>
+
+        {/* Additional Info Section */}
+        <View
+          style={{
+            marginTop: 24,
+            paddingHorizontal: 16,
+            paddingVertical: 12,
+            backgroundColor: c.cardBg,
+            borderRadius: 12,
+            borderLeftWidth: 4,
+            borderLeftColor: c.accent,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 13,
+              color: c.textSub,
+              lineHeight: 20,
+            }}
+          >
+            📦 Your order will be processed and shipped within 2-3 business days.
+          </Text>
         </View>
 
         {/* spacer behind sticky button */}
@@ -112,13 +247,35 @@ const CheckoutScreen: React.FC = () => {
       </ScrollView>
 
       {/* ── sticky Checkout button ── */}
-      <View style={[S.stickyBar, { backgroundColor: c.headerBg, borderTopColor: c.headerBorder }]}>
+      <View 
+        style={[
+          S.stickyBar, 
+          { 
+            backgroundColor: c.headerBg, 
+            borderTopColor: c.headerBorder,
+            paddingHorizontal: 16,
+            paddingVertical: 14,
+          }
+        ]}
+      >
         <Pressable
           onPress={onCheckout}
-          style={({ pressed }) => [S.pillBtn, { backgroundColor: pressed ? c.accentPress : c.accent }]}
+          style={({ pressed }) => [
+            S.pillBtn, 
+            {
+              backgroundColor: pressed ? c.accentPress : c.accent,
+              borderRadius: 14,
+              paddingVertical: 14,
+              shadowColor: "#000",
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.2,
+              shadowRadius: 4,
+              elevation: 3,
+            }
+          ]}
         >
           <Text style={[S.pillTxt, { color: c.accentTxt }]}>
-            Checkout  ·  ₱ {(grand || 0).toLocaleString()}
+            Complete Checkout  ·  ₱ {(total || 0).toLocaleString()}
           </Text>
         </Pressable>
       </View>
