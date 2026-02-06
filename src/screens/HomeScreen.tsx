@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { View, Text, Pressable, FlatList, ImageBackground } from "react-native";
 import { useTh } from "../context/ThemeContext";
 import { useNav } from "../context/NavigationContext";
@@ -15,7 +15,7 @@ const HomeScreen: React.FC = () => {
   const { go } = useNav();
   const { qty } = useCart();
 
-  const renderHeader = () => (
+  const renderHeader = useMemo(() => (
     <>
       {/* hero banner with background image */}
       <ImageBackground
@@ -184,7 +184,7 @@ const HomeScreen: React.FC = () => {
       {/* section heading */}
       <Text style={[S.sectionLbl, { color: c.textTert }]}>ALL PRODUCTS</Text>
     </>
-  );
+  ), [c.cardBorder, c.textTert, c.accent]);
 
   const renderProduct = ({ item }: { item: Product }) => (
     <ProductCard product={item} />
@@ -198,7 +198,7 @@ const HomeScreen: React.FC = () => {
       <FlatList
         data={PRODUCTS}
         renderItem={renderProduct}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
         ListHeaderComponent={renderHeader}
         contentContainerStyle={S.scrollPad}
         showsVerticalScrollIndicator={false}
