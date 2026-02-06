@@ -14,39 +14,43 @@ FitShop is a fully functional fitness equipment shopping application featuring a
 - Inspiring promotional text: "Transform Your Fitness"
 - **All Products Section** displaying available gym equipment with images
 - Each product card shows:
-  - Product image loaded from URL
+  - Product image loaded from URL (or fallback avatar)
   - Product name and description
   - Price in Philippine Peso (₱)
-  - "+ Add" button to add items to cart
-  - Badge showing quantity if item is already in cart
+  - "Add to Cart" button (shows quantity if item is already in cart)
 - **Sticky Cart Button** (appears only when items are in cart)
-  - Quick access to cart with item count
+  - Quick access to cart with total item count
   - Uses cart icon and stylized design
 
 ### 🛒 Cart Screen
-- **Item Count Header** displaying total items in cart
+- **Item Count Header** displaying **total items** (by quantity, not product count)
+  - Example: 4 Dumbbells + 2 Water Bottles = "6 ITEMS" (not "2 ITEMS")
 - **Product List** with:
   - Product images loaded from URLs
   - Product name and unit price
   - Quantity controls (- and + buttons)
-  - Item subtotal (price × quantity)
+  - Item subtotal (price × quantity) with real-time updates
+- **Removal Confirmation**:
+  - When clicking "−" button with quantity = 1, an alert asks to confirm removal
+  - Prevents accidental item deletion
 - **Sticky Footer** showing:
   - Total cart amount
-  - "Proceed to Checkout" button with smooth press animation
+  - "Proceed to Checkout" button (only if cart has items)
 - **Empty State** with friendly message and "Browse Products" button if cart is empty
 
 ### 💳 Checkout Screen
-- **Order Header** showing item count
+- **Order Header** showing **total item count** (qty, not product count)
 - **Unified Order Summary Card** with:
   - Colored header with accent background
   - All product items with images (72x72px)
   - Product details: name, quantity, and line total
   - Total section displaying grand total
 - **Confirmation Dialog** before completing checkout
+- **Success Alert** after checkout completion with message
 - **Sticky Checkout Button** displaying:
   - Total amount breakdown
   - "Complete Checkout" button with shadow effects
-- **Success Alert** after checkout completion
+- **Navigation Reset**: After checkout, navigation stack is cleared so back button doesn't return to Cart/Checkout
 - **Empty State** with "Back to Shop" button if no items
 
 ### 🎨 Design Features
@@ -136,31 +140,98 @@ interface CartItem extends Product {
 9. **Compression Tee** - ₱250 (Dry-fit, slim cut)
 10. **Athletic Hoodie** - ₱1,890 (Fleece, kangaroo pocket)
 
-## 🎮 Navigation Flow
+## 🎯 Requirements Compliance
+
+### ✅ All Requirements Met
+
+**General Requirements:**
+- ✅ Built with React Native & Expo
+- ✅ State management via Context API (Cart, Theme, Navigation)
+- ✅ Light Mode & Dark Mode support
+- ✅ Clean, modular, readable code
+
+**Navigation Rules:**
+- ✅ Exactly 3 screens (Home, Cart, Checkout)
+- ✅ Flow: Home → Cart → Checkout (enforced)
+- ✅ Cannot skip Cart screen
+- ✅ Cannot navigate Home → Checkout directly
+- ✅ After checkout: Cart cleared & navigation reset (no back button)
+
+**Home Screen:**
+- ✅ Display all 10 products
+- ✅ Show name and price for each product
+- ✅ "Add to Cart" button on each product
+- ✅ "Go to Cart" button visible (when items in cart)
+- ✅ Adding existing product increases quantity (no duplicates)
+
+**Cart Screen:**
+- ✅ Display only cart items (not all products)
+- ✅ Show name, quantity, and item total
+- ✅ '+' button increases quantity
+- ✅ '−' button decreases quantity with confirmation
+- ✅ Item removed when quantity reaches 0
+- ✅ Quantity never below 0
+- ✅ Real-time price updates
+- ✅ Cart item count shows **total quantity** (not product count)
+- ✅ "Proceed to Checkout" button (only if items exist)
+
+**Checkout Screen:**
+- ✅ Display all cart products
+- ✅ Show name, quantity, item price
+- ✅ Show grand total
+- ✅ "Complete Checkout" button
+- ✅ Success alert after checkout
+- ✅ Cart cleared after successful checkout
+- ✅ Navigate to Home with cleared history
+- ✅ Cannot checkout with empty cart
+- ✅ All prices and totals accurate
+
+**Theme:**
+- ✅ Light Mode support
+- ✅ Dark Mode support
+- ✅ Consistent theme across all screens
+- ✅ Theme toggle via sun/moon icon
+
+---
+
+
 
 ```
 Home Screen
     ↓
-    └→ Add items to cart → Sticky "Go to Cart" button
-                              ↓
-                          Cart Screen
-                              ↓
-                              └→ Adjust quantities/review items
-                                      ↓
-                                  "Proceed to Checkout"
-                                      ↓
-                                Checkout Screen
-                                      ↓
-                                      └→ Review order
-                                          ↓
-                                      "Complete Checkout"
-                                          ↓
-                                  Confirmation Dialog
-                                          ↓
-                                      Success Alert
-                                          ↓
-                                      Back to Home (cart cleared)
+    ├→ Add items to cart
+    │
+    └→ Sticky "Go to Cart" button (qty shown)
+                    ↓
+                Cart Screen
+                    ↓
+                    ├→ Review items
+                    ├→ Adjust quantities (±)
+                    │  (Confirmation dialog when removing items)
+                    │
+                    └→ "Proceed to Checkout" button
+                            ↓
+                        Checkout Screen
+                            ↓
+                            ├→ Review order summary
+                            │
+                            └→ "Complete Checkout" button
+                                    ↓
+                            Confirmation Dialog (Are you sure?)
+                                    ↓
+                            Success Alert (Order placed!)
+                                    ↓
+                        [CLEAR CART + RESET NAVIGATION]
+                                    ↓
+                            Back to Home Screen
+                            (Back button doesn't work)
 ```
+
+**Key Constraints:**
+- ✅ Home → Cart → Checkout (only allowed flow)
+- ✅ Cannot skip Cart screen
+- ✅ Cannot navigate Home → Checkout directly
+- ✅ After checkout: navigation stack reset (no back to Cart/Checkout)
 
 ## 🎯 State Management
 
@@ -168,24 +239,21 @@ Home Screen
 Manages shopping cart operations:
 - **State**: Array of CartItem objects
 - **Methods**:
-  - `add(product)` - Add item to cart (or increment quantity if exists)
-  - `inc(id)` - Increase quantity of item
-  - `dec(id)` - Decrease quantity (removes item when quantity reaches 0)
-  - `clear()` - Empty entire cart
+  - `add(product)` - Add item to cart (or increment quantity if already exists, preventing duplicates)
+  - `inc(id)` - Increase quantity of item by 1
+  - `dec(id)` - Decrease quantity by 1 (removes item when quantity reaches 1)
+  - `clear()` - Empty entire cart after successful checkout
 - **Derived Values**:
-  - `qty` - Total item count across all lines
+  - `qty` - **Total item count** (sum of all quantities, not product count)
+    - Example: 4 Dumbbells + 2 Water Bottles = qty: 6
   - `total` - Sum of (price × quantity) for all items
 
-### ThemeContext
-Manages application theming:
-- **State**: `dark` boolean flag
-- **Methods**: `toggleTheme()` to switch between light/dark modes
-- **Colors**: Dynamic color palette based on theme
-
 ### NavigationContext
-Handles screen navigation:
+Handles screen navigation and history:
 - **State**: Current screen ID
-- **Methods**: `go(screenId)` to navigate between screens
+- **Methods**: 
+  - `go(screenId)` - Navigate between screens (maintains back history)
+  - `reset(screenId)` - Navigate to screen while clearing back history (used after checkout)
 
 ## 🎨 Styling System
 
@@ -197,45 +265,28 @@ All styles are centralized in `src/styles/global.ts`:
 - **Buttons**: Pill-shaped design, press state animations
 - **Empty States**: Centered layout with icon, message, and action button
 
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js (v14+)
-- npm or yarn
-- Expo CLI (for development)
-- iOS/Android emulator or physical device
-
-### Installation
-```bash
-# Install dependencies
-npm install
-
-# Start the development server
-npm start
-
-# Run on iOS
-npm run ios
-
-# Run on Android
-npm run android
-```
-
 ## 🔧 Key Technologies
 
-- **React Native** - Cross-platform mobile framework
-- **TypeScript** - Static type checking
-- **React Context API** - State management (no Redux)
+- **React Native** - Cross-platform mobile framework (iOS & Android)
 - **Expo** - Development platform and SDK
-- **Custom Navigation** - Screen navigation implementation
+- **TypeScript** - Static type checking for type safety
+- **React Context API** - Global state management (Cart, Theme, Navigation)
+- **Custom Navigation** - Custom screen navigation implementation (no React Navigation library)
 
 ## 🎯 Features Breakdown
 
 ### Cart Management
-- Add items from product cards
-- Increment/decrement quantities
-- Remove items when quantity reaches 0
+- Add items from product cards (no duplicates, just increment quantity)
+- Increment/decrement quantities with real-time price updates
+- **Removal confirmation** - Alert appears when trying to remove item (qty = 1)
 - Real-time total calculation
-- Persistent cart state during session
+- Clear cart after successful checkout
+- **Accurate item count** - Shows total quantity (sum of all items), not product count
+
+### Navigation
+- **Enforced flow**: Home → Cart → Checkout (cannot skip Cart)
+- **Navigation reset after checkout**: Back button doesn't work after successful purchase
+- Confirmation dialogs before important actions
 
 ### User Experience
 - Responsive design for all screen sizes
@@ -243,40 +294,10 @@ npm run android
 - Clear visual feedback for interactions
 - Image loading with proper error handling
 - Empty states with helpful messages
-- Confirmation dialogs for important actions
+- Confirmation dialogs for important actions (checkout & item removal)
 
 ### Dark Mode
 - Complete dark theme support
-- Toggle-able via header icon
+- Toggle-able via sun/moon icon in header
 - Consistent color scheme across all screens
 - Readable text contrast in both themes
-
-### Image Handling
-- All product images loaded from URLs
-- Proper React Native Image component usage with `{ uri: imageUrl }` syntax
-- Fallback avatars for products without images
-- Optimized image sizing for performance
-
-## 📝 Technical Highlights
-
-- **TypeScript** for type safety and better developer experience
-- **Context API** for clean, centralized state management
-- **Custom Components** for reusability and consistency
-- **Memoization** using `useMemo` to prevent unnecessary re-renders
-- **Responsive Layouts** using Flexbox
-- **Clean Code Structure** with organized component folders
-- **No External Dependencies** for navigation or state (custom implementation)
-
-## 🎓 Learning Outcomes
-
-This project demonstrates:
-- React Native fundamentals
-- Context API for state management
-- TypeScript integration
-- Component architecture
-- Custom navigation implementation
-- Theme switching
-- Shopping cart logic
-- Form handling and validation
-- Image handling in React Native
-- Clean code practices
