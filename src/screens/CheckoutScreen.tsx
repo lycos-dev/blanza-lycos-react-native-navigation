@@ -17,7 +17,7 @@ import S from "../styles/global";
 
 const CheckoutScreen: React.FC = () => {
   const { c } = useTh();
-  const { go } = useNav();
+  const { go, reset } = useNav();
   const { items, qty, total, clear } = useCart();
 
   /* ── checkout handler ── */
@@ -45,12 +45,12 @@ const CheckoutScreen: React.FC = () => {
           text: "OK",
           onPress: () => {
             clear(); // wipe the cart
-            go(Screen.Home); // navigate back to shop
+            reset(Screen.Home); // reset navigation stack and go to Home
           },
         },
       ],
     );
-  }, [clear, go]);
+  }, [clear, reset]);
 
   /* ── empty guard ── */
   if (items.length === 0) {

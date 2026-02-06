@@ -6,11 +6,13 @@ import { Screen } from "../types";
 export interface NavCtxType {
   screen: Screen;
   go: (s: Screen) => void;
+  reset: (s: Screen) => void;
 }
 
 const NavCtx = createContext<NavCtxType>({
   screen: Screen.Home,
   go: () => {},
+  reset: () => {},
 });
 
 // ─── provider ───────────────────────────────────────────────────────────────
@@ -18,9 +20,10 @@ const NavCtx = createContext<NavCtxType>({
 export const NavProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [screen, setScreen] = useState<Screen>(Screen.Home);
   const go = useCallback((s: Screen) => setScreen(s), []);
+  const reset = useCallback((s: Screen) => setScreen(s), []);
 
   return (
-    <NavCtx.Provider value={{ screen, go }}>
+    <NavCtx.Provider value={{ screen, go, reset }}>
       {children}
     </NavCtx.Provider>
   );

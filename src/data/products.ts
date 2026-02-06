@@ -55,7 +55,7 @@ export const PRODUCTS: Product[] = [
     price: 1250,
     icon: "JG",
     description: "Tapered, cotton blend",
-    image: "https://img.sanishtech.com/u/4acbdba4628e620c613d8352d045d573.png",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTAP9mKbox-qLqn95Yrd521FgJNHvg-CEBlA&s",
   },
   {
     id: 8,
