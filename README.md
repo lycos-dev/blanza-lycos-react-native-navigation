@@ -14,7 +14,7 @@ FitShop is a fully functional fitness equipment shopping application featuring a
 - Inspiring promotional text: "Transform Your Fitness"
 - **All Products Section** displaying available gym equipment with images
 - Each product card shows:
-  - Product image (or fallback avatar)
+  - Product image loaded from URL
   - Product name and description
   - Price in Philippine Peso (₱)
   - "+ Add" button to add items to cart
@@ -26,7 +26,7 @@ FitShop is a fully functional fitness equipment shopping application featuring a
 ### 🛒 Cart Screen
 - **Item Count Header** displaying total items in cart
 - **Product List** with:
-  - Product images (80x80px, rounded corners)
+  - Product images loaded from URLs
   - Product name and unit price
   - Quantity controls (- and + buttons)
   - Item subtotal (price × quantity)
@@ -41,12 +41,12 @@ FitShop is a fully functional fitness equipment shopping application featuring a
   - Colored header with accent background
   - All product items with images (72x72px)
   - Product details: name, quantity, and line total
-  - **Black Total Section** with white text for maximum visibility
-    - "Total Amount" label
-    - Grand total price in white text
+  - Total section displaying grand total
+- **Confirmation Dialog** before completing checkout
 - **Sticky Checkout Button** displaying:
   - Total amount breakdown
   - "Complete Checkout" button with shadow effects
+- **Success Alert** after checkout completion
 - **Empty State** with "Back to Shop" button if no items
 
 ### 🎨 Design Features
@@ -59,19 +59,25 @@ FitShop is a fully functional fitness equipment shopping application featuring a
   - White text for maximum contrast on dark backgrounds
 - **Smooth Animations** on button presses and navigation
 - **Professional Typography** with clear hierarchy and spacing
+- **Optimized Images** loaded from URLs for better performance
 
 ## 🏗️ Project Structure
 
 ```
 src/
 ├── components/          # Reusable UI components
-│   ├── Avatar.tsx      # Product avatar circles
-│   ├── Badge.tsx       # Notification badge
-│   ├── CartRow.tsx     # Individual cart item row
-│   ├── CoRow.tsx       # Checkout order row
-│   ├── Header.tsx      # Top navigation header
-│   ├── ProductCard.tsx # Product display card
-│   ├── Toggle.tsx      # Theme toggle switch
+│   ├── common/         # Common UI components
+│   │   ├── Avatar.tsx      # Product avatar circles
+│   │   ├── Badge.tsx       # Notification badge
+│   │   ├── Header.tsx      # Top navigation header
+│   │   └── Toggle.tsx      # Theme toggle switch
+│   ├── product/        # Product-specific components
+│   │   ├── ProductCard.tsx # Product display card
+│   │   └── CatTag.tsx      # Category tag
+│   ├── cart/           # Cart-specific components
+│   │   └── CartRow.tsx     # Individual cart item row
+│   ├── checkout/       # Checkout-specific components
+│   │   └── CoRow.tsx       # Checkout order row
 │   └── icons/          # Icon components
 │       ├── CartIcon.tsx
 │       ├── BackArrow.tsx
@@ -89,22 +95,11 @@ src/
 ├── styles/             # Global styling
 │   └── global.ts       # Centralized style definitions
 ├── data/               # Static data
-│   └── products.ts     # Product catalog
-├── assets/             # Images and resources
-│   ├── dumbbellImage.png
-│   ├── resistanceBand.png
-│   ├── speedJumprope.webp
-│   ├── yogaMat.png
-│   ├── gymGloves.avif
-│   ├── proteinShaker.jpg
-│   ├── joggerPants.png
-│   ├── sandoVest.png
-│   ├── compressionTee.png
-│   └── athleticHoodie.png
+│   └── products.ts     # Product catalog with image URLs
 ├── utils/              # Helper functions
 │   └── avatarTints.ts  # Color utilities
-└── types.ts            # TypeScript interfaces
-
+└── types/              # TypeScript definitions
+    └── index.ts        # Type interfaces
 ```
 
 ## 📦 Data Structure
@@ -117,7 +112,7 @@ interface Product {
   price: number;
   category?: string;
   icon: string;
-  image?: any;
+  image?: string;      // Image URL
   description: string;
 }
 ```
@@ -160,6 +155,8 @@ Home Screen
                                           ↓
                                       "Complete Checkout"
                                           ↓
+                                  Confirmation Dialog
+                                          ↓
                                       Success Alert
                                           ↓
                                       Back to Home (cart cleared)
@@ -187,6 +184,7 @@ Manages application theming:
 
 ### NavigationContext
 Handles screen navigation:
+- **State**: Current screen ID
 - **Methods**: `go(screenId)` to navigate between screens
 
 ## 🎨 Styling System
@@ -207,13 +205,28 @@ All styles are centralized in `src/styles/global.ts`:
 - Expo CLI (for development)
 - iOS/Android emulator or physical device
 
+### Installation
+```bash
+# Install dependencies
+npm install
+
+# Start the development server
+npm start
+
+# Run on iOS
+npm run ios
+
+# Run on Android
+npm run android
+```
+
 ## 🔧 Key Technologies
 
 - **React Native** - Cross-platform mobile framework
 - **TypeScript** - Static type checking
 - **React Context API** - State management (no Redux)
 - **Expo** - Development platform and SDK
-- **React Navigation** - Screen navigation (custom implementation)
+- **Custom Navigation** - Screen navigation implementation
 
 ## 🎯 Features Breakdown
 
@@ -222,17 +235,48 @@ All styles are centralized in `src/styles/global.ts`:
 - Increment/decrement quantities
 - Remove items when quantity reaches 0
 - Real-time total calculation
-- No external pricing rules (direct calculation)
+- Persistent cart state during session
 
 ### User Experience
 - Responsive design for all screen sizes
 - Smooth press animations on buttons
 - Clear visual feedback for interactions
-- Loading states handled gracefully
+- Image loading with proper error handling
 - Empty states with helpful messages
+- Confirmation dialogs for important actions
 
 ### Dark Mode
 - Complete dark theme support
 - Toggle-able via header icon
 - Consistent color scheme across all screens
 - Readable text contrast in both themes
+
+### Image Handling
+- All product images loaded from URLs
+- Proper React Native Image component usage with `{ uri: imageUrl }` syntax
+- Fallback avatars for products without images
+- Optimized image sizing for performance
+
+## 📝 Technical Highlights
+
+- **TypeScript** for type safety and better developer experience
+- **Context API** for clean, centralized state management
+- **Custom Components** for reusability and consistency
+- **Memoization** using `useMemo` to prevent unnecessary re-renders
+- **Responsive Layouts** using Flexbox
+- **Clean Code Structure** with organized component folders
+- **No External Dependencies** for navigation or state (custom implementation)
+
+## 🎓 Learning Outcomes
+
+This project demonstrates:
+- React Native fundamentals
+- Context API for state management
+- TypeScript integration
+- Component architecture
+- Custom navigation implementation
+- Theme switching
+- Shopping cart logic
+- Form handling and validation
+- Image handling in React Native
+- Clean code practices
