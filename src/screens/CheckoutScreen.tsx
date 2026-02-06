@@ -28,7 +28,7 @@ const CheckoutScreen: React.FC = () => {
       [
         { text: "Cancel", style: "cancel" },
         {
-          text: "Yes, Checkout",
+          text: "Yes",
           onPress: onCheckout, // your existing checkout function
           style: "default",
         },
