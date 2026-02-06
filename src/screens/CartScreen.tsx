@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Pressable, FlatList, Image } from "react-native";
+import { View, Text, Pressable, FlatList, Image, Alert } from "react-native";
 import { useTh } from "../context/ThemeContext";
 import { useNav } from "../context/NavigationContext";
 import { useCart } from "../context/CartContext";
@@ -13,6 +13,28 @@ const CartScreen: React.FC = () => {
   const { c } = useTh();
   const { go } = useNav();
   const { items, qty, total, inc, dec } = useCart();
+
+  /* ── handler for decrease with confirmation ── */
+  const handleDecrement = (item: CartItem) => {
+    if (item.quantity <= 1) {
+      // Show confirmation dialog if trying to remove the item
+      Alert.alert(
+        "Remove Item?",
+        `Remove "${item.name}" from cart?`,
+        [
+          { text: "Cancel", style: "cancel" },
+          {
+            text: "Remove",
+            style: "destructive",
+            onPress: () => dec(item.id),
+          },
+        ],
+      );
+    } else {
+      // Just decrease without confirmation if qty > 1
+      dec(item.id);
+    }
+  };
 
   /* ── empty state ── */
   if (items.length === 0) {
@@ -90,7 +112,7 @@ const CartScreen: React.FC = () => {
             type="−"
             color={c.text}
             bg={c.bg}
-            onPress={() => dec(item.id)}
+            onPress={() => handleDecrement(item)}
           />
           <Text style={[S.qtyNum, { color: c.text }]}>{item.quantity}</Text>
           <QtyBtn
