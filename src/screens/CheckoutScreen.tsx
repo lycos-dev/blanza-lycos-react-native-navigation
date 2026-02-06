@@ -1,5 +1,13 @@
 import React, { useCallback } from "react";
-import { View, Text, Pressable, ScrollView, FlatList, Alert, Image } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  ScrollView,
+  FlatList,
+  Alert,
+  Image,
+} from "react-native";
 import { useTh } from "../context/ThemeContext";
 import { useNav } from "../context/NavigationContext";
 import { useCart } from "../context/CartContext";
@@ -13,6 +21,21 @@ const CheckoutScreen: React.FC = () => {
   const { items, total, clear } = useCart();
 
   /* ── checkout handler ── */
+  const confirmCheckout = () => {
+    Alert.alert(
+      "Confirm Checkout",
+      "Are you sure you want to complete this checkout?",
+      [
+        { text: "Cancel", style: "cancel" },
+        {
+          text: "Yes, Checkout",
+          onPress: onCheckout, // your existing checkout function
+          style: "default",
+        },
+      ],
+    );
+  };
+
   const onCheckout = useCallback(() => {
     Alert.alert(
       "Checkout Successful",
@@ -21,11 +44,11 @@ const CheckoutScreen: React.FC = () => {
         {
           text: "OK",
           onPress: () => {
-            clear();                // wipe the cart
-            go(Screen.Home);        // navigate back to shop
+            clear(); // wipe the cart
+            go(Screen.Home); // navigate back to shop
           },
         },
-      ]
+      ],
     );
   }, [clear, go]);
 
@@ -35,7 +58,9 @@ const CheckoutScreen: React.FC = () => {
       <View style={[S.screen, { backgroundColor: c.bg }]}>
         <Header title="Checkout" back />
         <View style={S.emptyWrap}>
-          <Text style={[S.emptyTitle, { color: c.text }]}>Nothing to checkout</Text>
+          <Text style={[S.emptyTitle, { color: c.text }]}>
+            Nothing to checkout
+          </Text>
           <Pressable
             onPress={() => go(Screen.Home)}
             style={({ pressed }) => [
@@ -44,14 +69,22 @@ const CheckoutScreen: React.FC = () => {
               { backgroundColor: pressed ? c.accentPress : c.accent },
             ]}
           >
-            <Text style={[S.pillTxt, { color: c.accentTxt }]}>Back to Shop</Text>
+            <Text style={[S.pillTxt, { color: c.accentTxt }]}>
+              Back to Shop
+            </Text>
           </Pressable>
         </View>
       </View>
     );
   }
 
-  const renderOrderItem = ({ item, index }: { item: CartItem; index: number }) => (
+  const renderOrderItem = ({
+    item,
+    index,
+  }: {
+    item: CartItem;
+    index: number;
+  }) => (
     <View
       style={{
         flexDirection: "row",
@@ -129,9 +162,9 @@ const CheckoutScreen: React.FC = () => {
     <View style={[S.screen, { backgroundColor: c.bg }]}>
       <Header title="Checkout" back />
 
-      <ScrollView 
-        style={S.scroll} 
-        contentContainerStyle={S.scrollPad} 
+      <ScrollView
+        style={S.scroll}
+        contentContainerStyle={S.scrollPad}
         showsVerticalScrollIndicator={false}
       >
         {/* Order Header Section */}
@@ -142,17 +175,17 @@ const CheckoutScreen: React.FC = () => {
         </View>
 
         {/* Order Summary Card */}
-        <View 
+        <View
           style={[
-            S.coCard, 
-            { 
-              backgroundColor: c.cardBg, 
+            S.coCard,
+            {
+              backgroundColor: c.cardBg,
               borderColor: c.cardBorder,
               borderRadius: 18,
               paddingVertical: 0,
               paddingHorizontal: 0,
               overflow: "hidden",
-            }
+            },
           ]}
         >
           {/* Card Header with accent background */}
@@ -229,21 +262,21 @@ const CheckoutScreen: React.FC = () => {
       </ScrollView>
 
       {/* sticky Checkout button */}
-      <View 
+      <View
         style={[
-          S.stickyBar, 
-          { 
-            backgroundColor: c.headerBg, 
+          S.stickyBar,
+          {
+            backgroundColor: c.headerBg,
             borderTopColor: c.headerBorder,
             paddingHorizontal: 16,
             paddingVertical: 14,
-          }
+          },
         ]}
       >
         <Pressable
-          onPress={onCheckout}
+          onPress={confirmCheckout}
           style={({ pressed }) => [
-            S.pillBtn, 
+            S.pillBtn,
             {
               backgroundColor: pressed ? c.accentPress : c.accent,
               borderRadius: 14,
@@ -253,11 +286,11 @@ const CheckoutScreen: React.FC = () => {
               shadowOpacity: 0.2,
               shadowRadius: 4,
               elevation: 3,
-            }
+            },
           ]}
         >
           <Text style={[S.pillTxt, { color: c.accentTxt }]}>
-            Complete Checkout  ·  ₱ {(total || 0).toLocaleString()}
+            Complete Checkout · ₱ {(total || 0).toLocaleString()}
           </Text>
         </Pressable>
       </View>
