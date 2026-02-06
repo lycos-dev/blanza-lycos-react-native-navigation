@@ -19,50 +19,74 @@ const ProductCard = ({ product }: { product: Product }) => {
     <View
       style={[S.card, { backgroundColor: c.cardBg, borderColor: c.cardBorder }]}
     >
-      {/* Show product image if available, otherwise show tinted two-letter avatar */}
-      {product.image ? (
-        <Image
-          source={{ uri: product.image }}
-          style={{
-            width: 64,
-            height: 64,
-            borderRadius: 12,
-            resizeMode: "cover",
-          }}
-        />
-      ) : (
-        <Avatar
-          icon={product.icon}
-          bg={avBg(product.category, dark)}
-          color={avTxt(product.category, dark)}
-        />
-      )}
-
-      {/* text block */}
-      <View style={S.cardBody}>
-        <View style={S.cardTitleRow}>
-          <Text style={[S.cardName, { color: c.text }]}>{product.name}</Text>
-        </View>
-        <Text style={[S.cardDesc, { color: c.textTert }]}>
-          {product.description}
-        </Text>
-        <Text style={[S.cardPrice, { color: c.price }]}>
-          ₱ {product.price.toLocaleString()}
-        </Text>
+      {/* Product Image / Avatar Section */}
+      <View style={{ flexShrink: 0 }}>
+        {product.image ? (
+          <Image
+            source={{ uri: product.image }}
+            style={{
+              width: 72,
+              height: 72,
+              borderRadius: 14,
+            }}
+            resizeMode="cover"
+          />
+        ) : (
+          <Avatar
+            icon={product.icon}
+            bg={avBg(product.category, dark)}
+            color={avTxt(product.category, dark)}
+          />
+        )}
       </View>
 
-      {/* add-to-cart pill */}
-      <Pressable
-        onPress={() => add(product)}
-        style={({ pressed }) => [
-          S.addBtn,
-          { backgroundColor: pressed ? c.accentPress : c.accent },
-        ]}
-      >
-        <Text style={[S.addBtnTxt, { color: c.accentTxt }]}>
-          {inCart > 0 ? `+ Add (${inCart})` : "+ Add"}
-        </Text>
-      </Pressable>
+      {/* Product Info Section */}
+      <View style={[S.cardBody, { justifyContent: "space-between", minHeight: 72 }]}>
+        {/* Top: Name & Description */}
+        <View>
+          <Text
+            style={[S.cardName, { color: c.text }]}
+            numberOfLines={1}
+          >
+            {product.name}
+          </Text>
+          <Text
+            style={[S.cardDesc, { color: c.textTert }]}
+            numberOfLines={2}
+          >
+            {product.description}
+          </Text>
+        </View>
+
+        {/* Bottom: Price & Button Row */}
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            gap: 10,
+          }}
+        >
+          <Text style={[S.cardPrice, { color: c.price }]}>
+            ₱ {product.price.toLocaleString()}
+          </Text>
+
+          {/* Add to Cart Button */}
+          <Pressable
+            onPress={() => add(product)}
+            style={({ pressed }) => [
+              S.addBtn,
+              {
+                backgroundColor: pressed ? c.accentPress : c.accent,
+              },
+            ]}
+          >
+            <Text style={[S.addBtnTxt, { color: c.accentTxt }]}>
+              {inCart > 0 ? `+ Add (${inCart})` : "+ Add to Cart"}
+            </Text>
+          </Pressable>
+        </View>
+      </View>
     </View>
   );
 };

@@ -126,11 +126,11 @@ const S = StyleSheet.create({
   /* ── product card ── */
   card: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "stretch",
     gap: 12,
     borderWidth: 1,
     borderRadius: 16,
-    padding: 14,
+    padding: 12,
     marginBottom: 10,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
@@ -138,7 +138,7 @@ const S = StyleSheet.create({
     shadowRadius: 6,
     elevation: 2,
   },
-  cardBody: { flex: 1, minWidth: 0 },
+  cardBody: { flex: 1, minWidth: 0, paddingVertical: 4 },
   cardTitleRow: {
     flexDirection: "row",
     alignItems: "center",
@@ -146,11 +146,11 @@ const S = StyleSheet.create({
     marginBottom: 3,
     flexWrap: "wrap",
   },
-  cardName: { fontSize: 14, fontWeight: "700" },
-  cardDesc: { fontSize: 12, marginBottom: 4 },
-  cardPrice: { fontSize: 15, fontWeight: "800" },
-  addBtn: { borderRadius: 10, paddingHorizontal: 14, paddingVertical: 8, flexShrink: 0 },
-  addBtnTxt: { fontSize: 13, fontWeight: "700" },
+  cardName: { fontSize: 14, fontWeight: "700", lineHeight: 18 },
+  cardDesc: { fontSize: 12, marginBottom: 6, lineHeight: 16 },
+  cardPrice: { fontSize: 15, fontWeight: "800", lineHeight: 20 },
+  addBtn: { borderRadius: 10, paddingHorizontal: 12, paddingVertical: 10, flexShrink: 0, justifyContent: "center" },
+  addBtnTxt: { fontSize: 12, fontWeight: "700", textAlign: "center" },
 
   /* ── sticky bar ── */
   stickyBar: { borderTopWidth: 1, paddingHorizontal: 16, paddingVertical: 14 },
