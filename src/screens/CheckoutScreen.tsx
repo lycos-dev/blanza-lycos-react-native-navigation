@@ -18,7 +18,7 @@ import S from "../styles/global";
 const CheckoutScreen: React.FC = () => {
   const { c } = useTh();
   const { go } = useNav();
-  const { items, total, clear } = useCart();
+  const { items, qty, total, clear } = useCart();
 
   /* ── checkout handler ── */
   const confirmCheckout = () => {
@@ -170,7 +170,7 @@ const CheckoutScreen: React.FC = () => {
         {/* Order Header Section */}
         <View style={{ marginBottom: 20 }}>
           <Text style={[S.sectionLbl, { color: c.textTert }]}>
-            {items.length} ITEM{items.length !== 1 ? "S" : ""} IN ORDER
+            {qty} ITEM{qty !== 1 ? "S" : ""} IN ORDER
           </Text>
         </View>
 
