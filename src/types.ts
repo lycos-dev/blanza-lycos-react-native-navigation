@@ -14,7 +14,7 @@ export interface Product {
   price: number;
   category?: string; // optional category
   icon: string; // two-letter abbreviation shown in avatar
-  image?: any; // optional image imported via require()
+  image?: string; // optional image URL
   description: string;
 }
 

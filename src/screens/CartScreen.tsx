@@ -55,7 +55,7 @@ const CartScreen: React.FC = () => {
     >
       {/* Product Image */}
       {item.image ? (
-        <Image source={item.image} style={S.cartImg} resizeMode="cover" />
+        <Image source={{ uri: item.image }} style={S.cartImg} resizeMode="cover" />
       ) : (
         <View
           style={[

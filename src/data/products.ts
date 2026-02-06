@@ -1,14 +1,4 @@
 import { Product } from "../types";
-import dumbbellImage from "../assets/dumbellImage.png";
-import resistanceBandImage from "../assets/resistanceBand.png";
-import jumpRopeImage from "../assets/speedJumprope.webp"
-import yogaMatImage from "../assets/yogaMat.png"
-import gymGlovesImage from "../assets/gymGloves.avif"
-import proteinShakerImage from "../assets/proteinShaker.jpg"
-import joggerPantsImage from "../assets/joggerPants.png"
-import sandoVestImage from "../assets/sandoVest.png"
-import compressionTeeImage from "../assets/compressionTee.png"
-import hoodieImage from "../assets/athleticHoodie.png"
 
 export const PRODUCTS: Product[] = [
   {
@@ -17,7 +7,7 @@ export const PRODUCTS: Product[] = [
     price: 3499,
     icon: "DB",
     description: "5–25 kg, anti-slip grip",
-    image: dumbbellImage,
+    image: "https://img.sanishtech.com/u/dd493f1069a80495f85576f19180fd5c.png",
   },
   {
     id: 2,
@@ -25,7 +15,7 @@ export const PRODUCTS: Product[] = [
     price: 849,
     icon: "RB",
     description: "5 levels, latex-free",
-    image: resistanceBandImage,
+    image: "https://img.sanishtech.com/u/2fdc1d06d59c9d31c15e6cf0a693fa46.png",
   },
   {
     id: 3,
@@ -33,7 +23,7 @@ export const PRODUCTS: Product[] = [
     price: 425,
     icon: "JR",
     description: "Bearings, foam handles",
-    image: jumpRopeImage,
+    image: "https://img.sanishtech.com/u/05f07e913516ba90bdd5bf6b23d8ddb4.webp",
   },
   {
     id: 4,
@@ -41,7 +31,7 @@ export const PRODUCTS: Product[] = [
     price: 620,
     icon: "YM",
     description: "6 mm thick, non-slip",
-    image: yogaMatImage,
+    image: "https://img.sanishtech.com/u/6c7ec73226a5f6dd395f94e131f778d1.png",
   },
   {
     id: 5,
@@ -49,7 +39,7 @@ export const PRODUCTS: Product[] = [
     price: 780,
     icon: "GG",
     description: "Wrist strap, breathable",
-    image: gymGlovesImage,
+    image: "https://img.sanishtech.com/u/ca636511dbd568b08e939dcd2e267f6a.png",
   },
   {
     id: 6,
@@ -57,7 +47,7 @@ export const PRODUCTS: Product[] = [
     price: 390,
     icon: "PS",
     description: "700 ml, leak-proof lid",
-    image: proteinShakerImage,
+    image: "https://img.sanishtech.com/u/af10c38aed4a6733b705df31907ea156.jpg",
   },
   {
     id: 7,
@@ -65,7 +55,7 @@ export const PRODUCTS: Product[] = [
     price: 1250,
     icon: "JG",
     description: "Tapered, cotton blend",
-    image: joggerPantsImage,
+    image: "https://img.sanishtech.com/u/4acbdba4628e620c613d8352d045d573.png",
   },
   {
     id: 8,
@@ -73,7 +63,7 @@ export const PRODUCTS: Product[] = [
     price: 150,
     icon: "SB",
     description: "cotton, breathable",
-    image: sandoVestImage,
+    image: "https://img.sanishtech.com/u/2b07944107494b8e1b7a6bb6014acd38.png",
   },
   {
     id: 9,
@@ -81,7 +71,7 @@ export const PRODUCTS: Product[] = [
     price: 250,
     icon: "CT",
     description: "Dry-fit, slim cut",
-    image: compressionTeeImage,
+    image: "https://img.sanishtech.com/u/6588b7321a468e972c13dd9b4387b034.png",
   },
   {
     id: 10,
@@ -89,6 +79,6 @@ export const PRODUCTS: Product[] = [
     price: 1890,
     icon: "AH",
     description: "Fleece, kangaroo pocket",
-    image: hoodieImage,
+    image: "https://img.sanishtech.com/u/8032577c86d9ea167e828ed82b34f08e.png",
   },
 ];

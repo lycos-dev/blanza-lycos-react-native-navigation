@@ -22,7 +22,7 @@ const ProductCard = ({ product }: { product: Product }) => {
       {/* Show product image if available, otherwise show tinted two-letter avatar */}
       {product.image ? (
         <Image
-          source={product.image}
+          source={{ uri: product.image }}
           style={{
             width: 64,
             height: 64,

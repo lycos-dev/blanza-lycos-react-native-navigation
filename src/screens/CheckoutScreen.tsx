@@ -98,7 +98,7 @@ const CheckoutScreen: React.FC = () => {
       {/* Product Image */}
       {item.image ? (
         <Image
-          source={item.image}
+          source={{ uri: item.image }}
           style={{
             width: 72,
             height: 72,
