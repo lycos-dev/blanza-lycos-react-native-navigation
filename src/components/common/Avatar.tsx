@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text } from "react-native";
-import S from "../styles/global";
+import S from "../../styles/global";
 
 interface Props {
-  icon: string;  // e.g. "DB", "AH"
-  bg: string;    // circle background
+  icon: string; // e.g. "DB", "AH"
+  bg: string; // circle background
   color: string; // text colour
 }
 

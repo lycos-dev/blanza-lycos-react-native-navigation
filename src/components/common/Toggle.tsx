@@ -1,9 +1,9 @@
 import React from "react";
 import { View, Pressable } from "react-native";
-import { useTh } from "../context/ThemeContext";
-import SunIcon from "./icons/SunIcon";
-import MoonIcon from "./icons/MoonIcon";
-import S from "../styles/global";
+import { useTh } from "../../context/ThemeContext";
+import SunIcon from "../icons/SunIcon";
+import MoonIcon from "../icons/MoonIcon";
+import S from "../../styles/global";
 
 const Toggle: React.FC = () => {
   const { c, dark, toggle } = useTh();

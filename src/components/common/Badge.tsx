@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { useTh } from "../context/ThemeContext";
-import { useCart } from "../context/CartContext";
-import S from "../styles/global";
+import { useTh } from "../../context/ThemeContext";
+import { useCart } from "../../context/CartContext";
+import S from "../../styles/global";
 
 const Badge: React.FC = () => {
   const { c } = useTh();

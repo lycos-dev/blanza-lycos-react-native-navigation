@@ -1,12 +1,12 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { useTh } from "../context/ThemeContext";
-import { useCart } from "../context/CartContext";
-import { CartItem } from "../types";
-import { avBg, avTxt } from "../utils/avatarTints";
-import Avatar from "./Avatar";
-import QtyBtn from "./icons/QtyBtn";
-import S from "../styles/global";
+import { useTh } from "../../context/ThemeContext";
+import { useCart } from "../../context/CartContext";
+import { CartItem } from "../../types";
+import { avBg, avTxt } from "../../utils/avatarTints";
+import Avatar from "../common/Avatar";
+import QtyBtn from "../icons/QtyBtn";
+import S from "../../styles/global";
 
 const CartRow = ({ item }: { item: CartItem }) => {
   const { c, dark } = useTh();

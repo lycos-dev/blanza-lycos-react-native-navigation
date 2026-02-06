@@ -1,13 +1,13 @@
 import React from "react";
 import { View, Text, Pressable } from "react-native";
-import { useTh } from "../context/ThemeContext";
-import { useNav } from "../context/NavigationContext";
-import { Screen } from "../types";
-import BackArrow from "./icons/BackArrow";
-import CartIcon from "./icons/CartIcon";
+import { useTh } from "../../context/ThemeContext";
+import { useNav } from "../../context/NavigationContext";
+import { Screen } from "../../types";
+import BackArrow from "../icons/BackArrow";
+import CartIcon from "../icons/CartIcon";
 import Badge from "./Badge";
 import Toggle from "./Toggle";
-import S from "../styles/global";
+import S from "../../styles/global";
 
 interface Props {
   title: string;

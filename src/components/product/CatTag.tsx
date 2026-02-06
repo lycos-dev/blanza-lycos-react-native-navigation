@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { useTh } from "../context/ThemeContext";
-import S from "../styles/global";
+import { useTh } from "../../context/ThemeContext";
+import S from "../../styles/global";
 
 const CatTag = ({ cat }: { cat: "Gym" | "Clothing" }) => {
   const { c } = useTh();

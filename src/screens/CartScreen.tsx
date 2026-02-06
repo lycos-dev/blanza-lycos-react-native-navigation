@@ -4,7 +4,7 @@ import { useTh } from "../context/ThemeContext";
 import { useNav } from "../context/NavigationContext";
 import { useCart } from "../context/CartContext";
 import { Screen, CartItem } from "../types";
-import Header from "../components/Header";
+import Header from "../components/common/Header";
 import CartIcon from "../components/icons/CartIcon";
 import QtyBtn from "../components/icons/QtyBtn";
 import S from "../styles/global";
@@ -55,7 +55,11 @@ const CartScreen: React.FC = () => {
     >
       {/* Product Image */}
       {item.image ? (
-        <Image source={{ uri: item.image }} style={S.cartImg} resizeMode="cover" />
+        <Image
+          source={{ uri: item.image }}
+          style={S.cartImg}
+          resizeMode="cover"
+        />
       ) : (
         <View
           style={[

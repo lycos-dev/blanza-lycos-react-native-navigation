@@ -12,7 +12,7 @@ import { useTh } from "../context/ThemeContext";
 import { useNav } from "../context/NavigationContext";
 import { useCart } from "../context/CartContext";
 import { Screen, CartItem } from "../types";
-import Header from "../components/Header";
+import Header from "../components/common/Header";
 import S from "../styles/global";
 
 const CheckoutScreen: React.FC = () => {

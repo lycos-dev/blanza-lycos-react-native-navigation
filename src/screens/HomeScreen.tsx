@@ -5,8 +5,8 @@ import { useNav } from "../context/NavigationContext";
 import { useCart } from "../context/CartContext";
 import { Screen, Product } from "../types";
 import { PRODUCTS } from "../data/products";
-import Header from "../components/Header";
-import ProductCard from "../components/ProductCard";
+import Header from "../components/common/Header";
+import ProductCard from "../components/product/ProductCard";
 import CartIcon from "../components/icons/CartIcon";
 import S from "../styles/global";
 
@@ -15,176 +15,179 @@ const HomeScreen: React.FC = () => {
   const { go } = useNav();
   const { qty } = useCart();
 
-  const renderHeader = useMemo(() => (
-    <>
-      {/* hero banner with background image */}
-      <ImageBackground
-        source={{
-          uri: "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=1200&h=500&fit=crop",
-        }}
-        style={[
-          S.hero,
-          { 
-            borderColor: c.cardBorder,
-            overflow: "hidden",
-            position: "relative",
-          },
-        ]}
-        imageStyle={{
-          borderRadius: 18,
-          opacity: 0.6,
-        }}
-      >
-        {/* Dark overlay to ensure text visibility */}
-        <View
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: "#000000",
-            opacity: 0.4,
-            zIndex: 2,
+  const renderHeader = useMemo(
+    () => (
+      <>
+        {/* hero banner with background image */}
+        <ImageBackground
+          source={{
+            uri: "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=1200&h=500&fit=crop",
+          }}
+          style={[
+            S.hero,
+            {
+              borderColor: c.cardBorder,
+              overflow: "hidden",
+              position: "relative",
+            },
+          ]}
+          imageStyle={{
             borderRadius: 18,
-          }}
-        />
-
-        {/* Decorative accent circles */}
-        <View
-          style={{
-            position: "absolute",
-            width: 200,
-            height: 200,
-            borderRadius: 100,
-            backgroundColor: c.accent,
-            opacity: 0.1,
-            top: -60,
-            right: -40,
-            zIndex: 1,
-          }}
-        />
-        <View
-          style={{
-            position: "absolute",
-            width: 140,
-            height: 140,
-            borderRadius: 70,
-            backgroundColor: c.accent,
-            opacity: 0.06,
-            bottom: -50,
-            left: -30,
-            zIndex: 1,
-          }}
-        />
-
-        {/* "Black Edition" Sticker - WHITE BACKGROUND */}
-        <View
-          style={{
-            position: "absolute",
-            top: 30,
-            right: -24,
-            zIndex: 15,
-            transform: [{ rotate: "45deg" }],
+            opacity: 0.6,
           }}
         >
+          {/* Dark overlay to ensure text visibility */}
           <View
             style={{
-              backgroundColor: "#ffffff",
-              paddingHorizontal: 20,
-              paddingVertical: 5,
-              borderRadius: 3,
-              shadowColor: "#000",
-              shadowOffset: { width: 0, height: 4 },
-              shadowOpacity: 0.3,
-              shadowRadius: 6,
-              elevation: 8,
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: "#000000",
+              opacity: 0.4,
+              zIndex: 2,
+              borderRadius: 18,
+            }}
+          />
+
+          {/* Decorative accent circles */}
+          <View
+            style={{
+              position: "absolute",
+              width: 200,
+              height: 200,
+              borderRadius: 100,
+              backgroundColor: c.accent,
+              opacity: 0.1,
+              top: -60,
+              right: -40,
+              zIndex: 1,
+            }}
+          />
+          <View
+            style={{
+              position: "absolute",
+              width: 140,
+              height: 140,
+              borderRadius: 70,
+              backgroundColor: c.accent,
+              opacity: 0.06,
+              bottom: -50,
+              left: -30,
+              zIndex: 1,
+            }}
+          />
+
+          {/* "Black Edition" Sticker - WHITE BACKGROUND */}
+          <View
+            style={{
+              position: "absolute",
+              top: 30,
+              right: -24,
+              zIndex: 15,
+              transform: [{ rotate: "45deg" }],
             }}
           >
-            <Text
+            <View
               style={{
-                fontSize: 10,
-                fontWeight: "800",
-                color: "#000000",
-                letterSpacing: 0.8,
+                backgroundColor: "#ffffff",
+                paddingHorizontal: 20,
+                paddingVertical: 5,
+                borderRadius: 3,
+                shadowColor: "#000",
+                shadowOffset: { width: 0, height: 4 },
+                shadowOpacity: 0.3,
+                shadowRadius: 6,
+                elevation: 8,
               }}
             >
-              BLACK EDITION
+              <Text
+                style={{
+                  fontSize: 10,
+                  fontWeight: "800",
+                  color: "#000000",
+                  letterSpacing: 0.8,
+                }}
+              >
+                BLACK EDITION
+              </Text>
+            </View>
+          </View>
+
+          {/* Main Content - Better centered layout */}
+          <View style={{ alignItems: "center", zIndex: 10, width: "100%" }}>
+            <Text
+              style={[
+                S.heroTitle,
+                {
+                  color: "#ffffff",
+                  textAlign: "center",
+                  fontSize: 32,
+                  marginBottom: 4,
+                  textShadowColor: "rgba(0, 0, 0, 0.5)",
+                  textShadowOffset: { width: 0, height: 2 },
+                  textShadowRadius: 4,
+                },
+              ]}
+            >
+              Transform
+            </Text>
+            <Text
+              style={[
+                S.heroTitle,
+                {
+                  color: "#ffffff",
+                  textAlign: "center",
+                  fontSize: 32,
+                  marginBottom: 12,
+                  textShadowColor: "rgba(0, 0, 0, 0.5)",
+                  textShadowOffset: { width: 0, height: 2 },
+                  textShadowRadius: 4,
+                },
+              ]}
+            >
+              Your Fitness
+            </Text>
+            <Text
+              style={[
+                S.heroSub,
+                {
+                  color: "#ffffff",
+                  textAlign: "center",
+                  fontSize: 14,
+                  textShadowColor: "rgba(0, 0, 0, 0.5)",
+                  textShadowOffset: { width: 0, height: 1 },
+                  textShadowRadius: 3,
+                },
+              ]}
+            >
+              Premium black-designed gym equipment for champions.
+            </Text>
+            <Text
+              style={[
+                S.heroSub,
+                {
+                  color: "#ffffff",
+                  textAlign: "center",
+                  fontSize: 14,
+                  textShadowColor: "rgba(0, 0, 0, 0.5)",
+                  textShadowOffset: { width: 0, height: 1 },
+                  textShadowRadius: 3,
+                },
+              ]}
+            >
+              Build the body you've always wanted.
             </Text>
           </View>
-        </View>
+        </ImageBackground>
 
-        {/* Main Content - Better centered layout */}
-        <View style={{ alignItems: "center", zIndex: 10, width: "100%" }}>
-          <Text
-            style={[
-              S.heroTitle,
-              {
-                color: "#ffffff",
-                textAlign: "center",
-                fontSize: 32,
-                marginBottom: 4,
-                textShadowColor: "rgba(0, 0, 0, 0.5)",
-                textShadowOffset: { width: 0, height: 2 },
-                textShadowRadius: 4,
-              },
-            ]}
-          >
-            Transform
-          </Text>
-          <Text
-            style={[
-              S.heroTitle,
-              {
-                color: "#ffffff",
-                textAlign: "center",
-                fontSize: 32,
-                marginBottom: 12,
-                textShadowColor: "rgba(0, 0, 0, 0.5)",
-                textShadowOffset: { width: 0, height: 2 },
-                textShadowRadius: 4,
-              },
-            ]}
-          >
-            Your Fitness
-          </Text>
-          <Text
-            style={[
-              S.heroSub,
-              {
-                color: "#ffffff",
-                textAlign: "center",
-                fontSize: 14,
-                textShadowColor: "rgba(0, 0, 0, 0.5)",
-                textShadowOffset: { width: 0, height: 1 },
-                textShadowRadius: 3,
-              },
-            ]}
-          >
-            Premium black-designed gym equipment for champions.
-          </Text>
-          <Text
-            style={[
-              S.heroSub,
-              {
-                color: "#ffffff",
-                textAlign: "center",
-                fontSize: 14,
-                textShadowColor: "rgba(0, 0, 0, 0.5)",
-                textShadowOffset: { width: 0, height: 1 },
-                textShadowRadius: 3,
-              },
-            ]}
-          >
-            Build the body you've always wanted.
-          </Text>
-        </View>
-      </ImageBackground>
-
-      {/* section heading */}
-      <Text style={[S.sectionLbl, { color: c.textTert }]}>ALL PRODUCTS</Text>
-    </>
-  ), [c.cardBorder, c.textTert, c.accent]);
+        {/* section heading */}
+        <Text style={[S.sectionLbl, { color: c.textTert }]}>ALL PRODUCTS</Text>
+      </>
+    ),
+    [c.cardBorder, c.textTert, c.accent],
+  );
 
   const renderProduct = ({ item }: { item: Product }) => (
     <ProductCard product={item} />
@@ -232,7 +235,7 @@ const HomeScreen: React.FC = () => {
             <View style={S.pillRow}>
               <CartIcon color={c.accentTxt} size={18} />
               <Text style={[S.pillTxt, { color: c.accentTxt }]}>
-                Go to Cart  ·  {qty}
+                Go to Cart · {qty}
               </Text>
             </View>
           </Pressable>

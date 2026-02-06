@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import { useTh } from "../context/ThemeContext";
 import { CartItem } from "../types";
 import { avBg, avTxt } from "../utils/avatarTints";
-import Avatar from "./Avatar";
+import Avatar from "./common/Avatar";
 import S from "../styles/global";
 
 const CoRow = ({ item }: { item: CartItem }) => {

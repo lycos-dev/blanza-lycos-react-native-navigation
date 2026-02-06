@@ -1,11 +1,11 @@
 import React from "react";
 import { View, Text, Pressable, Image } from "react-native";
-import { useTh } from "../context/ThemeContext";
-import { useCart } from "../context/CartContext";
-import { Product, CartItem } from "../types";
-import { avBg, avTxt } from "../utils/avatarTints";
-import Avatar from "./Avatar";
-import S from "../styles/global";
+import { useTh } from "../../context/ThemeContext";
+import { useCart } from "../../context/CartContext";
+import { Product, CartItem } from "../../types";
+import { avBg, avTxt } from "../../utils/avatarTints";
+import Avatar from "../common/Avatar";
+import S from "../../styles/global";
 
 const ProductCard = ({ product }: { product: Product }) => {
   const { c, dark } = useTh();
